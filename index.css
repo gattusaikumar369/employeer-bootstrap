@@ -133,7 +133,7 @@
   
  
   .nav-links-list li {
-    /* margin: 0 15px; */
+    margin: 0 15px;
     position: relative;
     transition: transform 0.3s ease;
   }
@@ -236,7 +236,7 @@
   }
   .report-dropdown li{
     padding: 4px 6px;
-    cursor: pointer;
+    cursor: pointer; 
     margin-top:10px;
   }
 
@@ -337,8 +337,11 @@
     background-color: #f0f0f0;
 }
 
-.post-item{
-  position:relative !important;
-  top:5px !important;
-  
+
+
+
+
+.dropdown-item{
+   background-color:transparent !important;
+   color: #050505 !important;
 }
