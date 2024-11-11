@@ -130,6 +130,14 @@
     padding: 0;
     margin-left:200px;
   }
+  
+ 
+  .nav-links-list li {
+    /* margin: 0 15px; */
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+
   .nav-list-item{
     color: #645e5e;
     font-size:15px;
@@ -138,12 +146,7 @@
     text-decoration:none;
     width:100%;
     white-space:nowrap;
-  }
  
-  .nav-links-list li {
-    margin: 0 15px;
-    position: relative;
-    transition: transform 0.3s ease;
   }
   .menu-dropdown ul li{
     transition: transform 0.3s ease;
@@ -332,4 +335,10 @@
 }
 .dot-name:hover {
     background-color: #f0f0f0;
+}
+
+.post-item{
+  position:relative !important;
+  top:5px !important;
+  
 }
