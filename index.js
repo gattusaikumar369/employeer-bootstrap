@@ -67,14 +67,14 @@ flatpickr("#dateRange", {
 
 
 
-
-  const rowsPerPage = 5;
+  const rowsPerPage = 4;
   let currentPage = 1;
   let filteredJobs = jobList; // Initialize with the full list
   
   const tableBody = document.getElementById("table-body");
   const previousButton = document.getElementById("previous");
   const nextButton = document.getElementById("next");
+  const pageNumbersContainer = document.getElementById("page-numbers");
   
   // Function to display current page items
   function displayPage(page) {
@@ -108,13 +108,56 @@ flatpickr("#dateRange", {
                   </div>
               </td>
           `;
-          
+  
           tableBody.appendChild(row);
       });
+  
+      // Update the pagination buttons
+      updatePagination();
   
       // Enable/Disable previous and next buttons based on the current page
       previousButton.disabled = currentPage === 1;
       nextButton.disabled = currentPage === Math.ceil(filteredJobs.length / rowsPerPage);
+  }
+  
+  // Function to update pagination numbers dynamically (showing a range of 3 or 4 page numbers)
+  function updatePagination() {
+      const totalPages = Math.ceil(filteredJobs.length / rowsPerPage);
+      pageNumbersContainer.innerHTML = ""; // Clear the previous page numbers
+  
+      let startPage = Math.max(1, currentPage - 2); // Start from two pages before the current page
+      let endPage = Math.min(totalPages, currentPage + 2); // End at two pages after the current page
+  
+      // Add previous button if not on the first page
+      if (currentPage > 1) {
+          const prevButton = document.createElement("button");
+          prevButton.textContent = "...";
+          prevButton.disabled = true;
+          pageNumbersContainer.appendChild(prevButton);
+      }
+  
+      // Generate page number buttons
+      for (let i = startPage; i <= endPage; i++) {
+          const pageNumberButton = document.createElement("button");
+          pageNumberButton.textContent = i;
+          pageNumberButton.classList.add("page-btn");
+          if (i === currentPage) {
+              pageNumberButton.classList.add("active"); // Highlight current page
+          }
+          pageNumberButton.addEventListener("click", () => {
+              currentPage = i;
+              displayPage(currentPage);
+          });
+          pageNumbersContainer.appendChild(pageNumberButton);
+      }
+  
+      // Add next button if not on the last page
+      if (currentPage < totalPages) {
+          const nextButton = document.createElement("button");
+          nextButton.textContent = "...";
+          nextButton.disabled = true;
+          pageNumbersContainer.appendChild(nextButton);
+      }
   }
   
   // Function to go to previous and next pages
@@ -126,7 +169,8 @@ flatpickr("#dateRange", {
   }
   
   function goToNextPage() {
-      if (currentPage < Math.ceil(filteredJobs.length / rowsPerPage)) {
+      const totalPages = Math.ceil(filteredJobs.length / rowsPerPage);
+      if (currentPage < totalPages) {
           currentPage++;
           displayPage(currentPage);
       }
